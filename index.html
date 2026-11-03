@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AulaBase, repositorio universitario colaborativo para material de clase." />
+    <title>AulaBase · Repositorio universitario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Ir al inicio">
+          <span class="brand-mark" aria-hidden="true">A</span>
+          <span>Aula<span class="brand-accent">Base</span></span>
+        </a>
+        <div class="topbar-actions">
+          <span class="demo-pill"><span class="status-dot"></span>Modo demostración</span>
+          <button class="avatar" aria-label="Perfil de estudiante">AS</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="disclosure" aria-label="Aviso de transparencia">
+          <span class="disclosure-icon" aria-hidden="true">✦</span>
+          <p><strong>Proyecto académico hecho con Copilot.</strong> Esta interfaz es una demostración para una investigación de clase; no es un servicio comercial.</p>
+        </section>
+
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Tu biblioteca de estudio</p>
+            <h1>Encuentra, comparte y aprende <em>en comunidad.</em></h1>
+            <p class="hero-description">Material organizado por clase para que encuentres lo que necesitas sin perder tiempo.</p>
+          </div>
+          <div class="hero-illustration" aria-hidden="true">
+            <div class="illustration-orbit orbit-one"></div>
+            <div class="illustration-orbit orbit-two"></div>
+            <div class="illustration-book">▱</div>
+            <span class="float-icon float-icon-one">✦</span>
+            <span class="float-icon float-icon-two">⌁</span>
+          </div>
+        </section>
+
+        <section class="toolbar" aria-label="Herramientas del repositorio">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="Buscar dentro de tus clases..." autocomplete="off" />
+          </label>
+          <button class="upload-button" id="open-upload" type="button"><span aria-hidden="true">＋</span> Subir material propio</button>
+        </section>
+
+        <section class="section-heading">
+          <div>
+            <p class="eyebrow">Mis clases</p>
+            <h2>Explora por materia</h2>
+          </div>
+          <span class="class-count">3 materias disponibles</span>
+        </section>
+
+        <section class="class-grid" id="class-grid" aria-live="polite">
+          <article class="class-card class-card-blue">
+            <span class="card-topline"><span class="subject-icon">⌘</span><span class="arrow">↗</span></span>
+            <span class="class-name">Arquitectura de<br />Computadoras</span>
+            <span class="class-meta">24 archivos · 4 carpetas</span>
+            <span class="progress-track"><span style="width: 68%"></span></span>
+            <div class="card-actions"><button class="class-open" data-class="Arquitectura de Computadoras" type="button">Abrir materia <span>→</span></button><button class="video-link" data-videos="Arquitectura de Computadoras" type="button">Videos YouTube sobre la materia</button></div>
+          </article>
+          <article class="class-card class-card-lilac">
+            <span class="card-topline"><span class="subject-icon">◇</span><span class="arrow">↗</span></span>
+            <span class="class-name">Estructuras<br />Discretas</span>
+            <span class="class-meta">18 archivos · 4 carpetas</span>
+            <span class="progress-track"><span style="width: 47%"></span></span>
+            <div class="card-actions"><button class="class-open" data-class="Estructuras Discretas" type="button">Abrir materia <span>→</span></button><button class="video-link" data-videos="Estructuras Discretas" type="button">Videos YouTube sobre la materia</button></div>
+          </article>
+          <article class="class-card class-card-yellow">
+            <span class="card-topline"><span class="subject-icon">{ }</span><span class="arrow">↗</span></span>
+            <span class="class-name">Programación</span>
+            <span class="class-meta">31 archivos · 4 carpetas</span>
+            <span class="progress-track"><span style="width: 82%"></span></span>
+            <div class="card-actions"><button class="class-open" data-class="Programación" type="button">Abrir materia <span>→</span></button><button class="video-link" data-videos="Programación" type="button">Videos YouTube sobre la materia</button></div>
+          </article>
+        </section>
+
+        <section class="recent-section">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Actividad reciente</p>
+              <h2>Archivos destacados</h2>
+            </div>
+            <button class="text-button" id="show-all" type="button">Ver todos <span>→</span></button>
+          </div>
+          <div class="recent-list" id="recent-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="repository-modal" aria-hidden="true">
+      <section class="repository-modal modal-panel" role="dialog" aria-modal="true" aria-labelledby="repository-title">
+        <button class="close-button" data-close-modal type="button" aria-label="Cerrar">×</button>
+        <div class="modal-kicker"><span class="folder-icon">▰</span> REPOSITORIO DE CLASE</div>
+        <h2 id="repository-title">Arquitectura de Computadoras</h2>
+        <p class="modal-description">Selecciona una carpeta para ver el material disponible.</p>
+        <div class="breadcrumb"><button id="back-home" type="button">Mis clases</button><span>/</span><strong id="breadcrumb-current">Carpetas</strong></div>
+        <div class="folder-grid" id="folder-grid"></div>
+        <div class="file-view" id="file-view" hidden>
+          <div class="file-view-heading"><button id="back-folders" type="button">← Carpetas</button><span id="file-category-title"></span></div>
+          <div id="file-list"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="videos-modal" aria-hidden="true">
+      <section class="videos-modal modal-panel" role="dialog" aria-modal="true" aria-labelledby="videos-title">
+        <button class="close-button" data-close-modal type="button" aria-label="Cerrar">×</button>
+        <div class="modal-kicker youtube-kicker"><span class="youtube-mark">▶</span> RECURSOS EXTERNOS</div>
+        <h2 id="videos-title">Videos sobre la materia</h2>
+        <p class="modal-description">Explora explicaciones y clases complementarias en YouTube.</p>
+        <div class="video-list" id="video-list"></div>
+        <p class="external-note">Los videos se abren en YouTube en una nueva pestaña.</p>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="upload-modal" aria-hidden="true">
+      <section class="upload-modal modal-panel" role="dialog" aria-modal="true" aria-labelledby="upload-title">
+        <button class="close-button" data-close-modal type="button" aria-label="Cerrar">×</button>
+        <div class="modal-kicker upload-kicker"><span class="upload-icon">↑</span> APORTACIÓN A LA COMUNIDAD</div>
+        <h2 id="upload-title">Subir material propio</h2>
+        <p class="modal-description">Comparte recursos respetando siempre los derechos de autor y las reglas de tu universidad.</p>
+        <form id="upload-form">
+          <fieldset>
+            <legend>Tipo de material <span class="required">*</span></legend>
+            <label class="radio-row"><input type="radio" name="material-type" value="file" checked required /><span><strong>Archivo</strong><small>PDF, DOCX o imagen.</small></span></label>
+            <label class="radio-row"><input type="radio" name="material-type" value="youtube" /><span><strong>Enlace de YouTube</strong><small>Comparte un video útil para la clase.</small></span></label>
+          </fieldset>
+          <div id="file-fields">
+            <label class="field-label">Archivo <span class="required">*</span></label>
+            <label class="file-drop" for="file-input"><span class="file-drop-icon">↑</span><strong id="file-name">Haz clic para seleccionar un archivo</strong><small>PDF, DOCX o imagen · máximo 10 MB</small></label>
+            <input id="file-input" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" required />
+          </div>
+          <div id="youtube-fields" hidden>
+            <label class="field-label" for="youtube-url">Enlace de YouTube <span class="required">*</span></label>
+            <input class="text-input" id="youtube-url" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+            <label class="field-label" for="video-title">Título del video <span class="required">*</span></label>
+            <input class="text-input" id="video-title" type="text" placeholder="Ej. Cómo resolver circuitos lógicos" />
+            <label class="field-label" for="video-subject">Tema o asunto <span class="required">*</span></label>
+            <input class="text-input" id="video-subject" type="text" placeholder="Ej. Simulación de compuertas lógicas" />
+            <fieldset>
+              <legend>¿Quién creó el video? <span class="required">*</span></legend>
+              <label class="radio-row"><input type="radio" name="video-author" value="student" /><span><strong>Estudiante</strong><small>Video creado por un estudiante.</small></span></label>
+              <label class="radio-row"><input type="radio" name="video-author" value="professor" /><span><strong>Profesor</strong><small>Video creado por un profesor o institución.</small></span></label>
+            </fieldset>
+            <label class="field-label" for="video-need">¿Qué se necesita del video? <span class="required">*</span></label>
+            <textarea class="text-input text-area" id="video-need" placeholder="Describe qué tema explica o cómo ayuda a la clase."></textarea>
+          </div>
+          <fieldset>
+            <legend>¿Quién está compartiendo el material? <span class="required">*</span></legend>
+            <label class="radio-row"><input type="radio" name="uploader-role" value="student" required /><span><strong>Soy estudiante</strong><small>Comparto material para apoyar a mis compañeros.</small></span></label>
+            <label class="radio-row"><input type="radio" name="uploader-role" value="professor" /><span><strong>Soy profesor</strong><small>Comparto material oficial o autorizado para el curso.</small></span></label>
+          </fieldset>
+          <label class="field-label">Curso o materia <span class="required">*</span></label>
+          <select id="upload-class" required>
+            <option value="">Selecciona una materia</option>
+            <option>Arquitectura de Computadoras</option>
+            <option>Estructuras Discretas</option>
+            <option>Programación</option>
+          </select>
+          <fieldset id="material-origin">
+            <legend>Origen del material <span class="required">*</span></legend>
+            <label class="radio-row"><input type="radio" name="origin" value="own" required /><span><strong>Es material propio</strong><small>Apuntes, ejercicios o resúmenes creados por mí.</small></span></label>
+            <label class="radio-row"><input type="radio" name="origin" value="professor" /><span><strong>Es de un profesor y tengo permiso</strong><small>Confirmo que cuento con autorización para compartirlo.</small></span></label>
+          </fieldset>
+          <fieldset id="digitize-options" class="digitize-options">
+            <legend>Preferencia de publicación</legend>
+            <label class="radio-row"><input type="radio" name="format" value="original" checked /><span><strong>Subir tal cual</strong><small>Conservar el archivo original y mi escritura.</small></span></label>
+            <label class="radio-row"><input type="radio" name="format" value="digitized" /><span><strong>Digitalizar y anonimizar</strong><small>Pasar mis apuntes a limpio y eliminar mi escritura.</small></span></label>
+          </fieldset>
+          <label class="consent-row"><input type="checkbox" required /><span>Confirmo que puedo compartir este material y acepto que otros estudiantes lo consulten.</span></label>
+          <button class="submit-button" type="submit">Enviar material <span>→</span></button>
+        </form>
+        <div class="success-message" id="success-message" hidden><span>✓</span><strong>¡Material recibido!</strong><p>Tu aportación quedó registrada para esta demostración.</p><button class="text-button" data-close-modal type="button">Cerrar</button></div>
+      </section>
+    </div>
+
+    <aside class="assistant-widget" id="assistant-widget">
+      <div class="assistant-panel" id="assistant-panel" hidden>
+        <div class="assistant-panel-header"><span class="assistant-spark">✦</span><strong>AulaBase AI</strong><button id="assistant-close" type="button" aria-label="Cerrar asistente">×</button></div>
+        <p class="assistant-message" id="assistant-message">Hola, ¿cómo puedo ayudarte?</p>
+        <div class="assistant-status" id="assistant-status"><span class="assistant-status-dot"></span><span id="assistant-status-text">Listo para escuchar</span></div>
+        <button class="assistant-demo-button" id="assistant-demo" type="button">Probar recomendación <span>→</span></button>
+      </div>
+      <button class="assistant-toggle" id="assistant-toggle" type="button" aria-label="Abrir asistente de AulaBase" aria-expanded="false"><span class="assistant-face">✦</span><span class="assistant-label">Asistente</span></button>
+    </aside>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
